@@ -1,10 +1,49 @@
 import React, { Component } from 'react';
 
 class Item extends Component {
-  render() {
+  renderShopMode() {
+    const {
+      name,
+      price,
+      qty,
+      onAdd
+    } = this.props;
     return (
-      <p>items</p>
+      <tr>
+        <th>{name}</th>
+        <th>{price}</th>
+        <th>{qty}</th>
+        <button onClick={() => onAdd && onAdd()}>Add</button>
+      </tr>
     );
+  }
+
+    renderCartMode() {
+      const {
+        name,
+        price,
+        qty,
+        onDelete
+      } = this.props;
+      return (
+        <tr>
+          <th>{name}</th>
+          <th>{price}</th>
+          <th>{qty}</th>
+          <button onClick={() => onDelete && onDelete()}>x</button>
+        </tr>
+      );
+    }
+
+  render() {
+    const {
+      mode
+    } = this.props;
+    if(mode === "Shop"){
+      return this.renderShopMode();
+    } else {
+      return this.renderCartMode();
+    }
   }
 }
 
