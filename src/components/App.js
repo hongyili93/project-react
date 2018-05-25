@@ -1,29 +1,33 @@
 import React, {Component} from 'react';
-import logo from '../images/logo.svg';
 import './App.css';
 import SiteHeader from './SiteHeader';
 import ItemList from './ItemList';
 import SubTotal from './SubTotal';
-import ShoppingCart from './ShoppingCart';
 
-const _deleteItem = (items, id) => {
-    const idx = items.findIndex((item) => item.id === id);
-    if (idx !== -1) items.splice(idx, 1);
-    return items;
+const _deleteItem = (items, cartItems, id) => {
+    const ids = items.findIndex((item) => item.id === id);
+    const idc = cartItems.findIndex((item) => item.id === id);
+    if (ids !== -1) {
+        items[ids].qty += cartItems[idc].qty;
+    } else {
+        var temp = {'id': id, 'name': cartItems[idc].name, 'price': cartItems[idc].price, 'qty': 1};
+        items.push(temp);
+    }
+    cartItems.splice(idc, 1);
+    return cartItems;
 };
 
 const _addItem = (items, cartItems, id) => {
-    console.log('start Add');
     const ids = items.findIndex((item) => item.id === id);
     const idc = cartItems.findIndex((item) => item.id === id);
     if (idc !== -1) {
         items[ids].qty -= 1;
         cartItems[idc].qty += 1;
     } else {
+        items[ids].qty -= 1;
         var temp = {'id': id, 'name': items[ids].name, 'price': items[ids].price, 'qty': 1};
         cartItems.push(temp);
     }
-    console.log('before return');
     return cartItems;
 };
 
@@ -74,7 +78,7 @@ class App extends Component {
                     })}/>
                 <ItemList items={cartItems} mode="Cart" onDelete={
                     (...args) => this.setState({
-                        cartItems: _deleteItem(cartItems, ...args)
+                        cartItems: _deleteItem(items, cartItems, ...args)
                     })}
                 />
                 <SubTotal/>
