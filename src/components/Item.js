@@ -10,9 +10,9 @@ class Item extends Component {
         } = this.props;
         return (
             <tr>
-                <th>{name}</th>
-                <th>{price}</th>
-                <th>{qty}</th>
+                <td>{name}</td>
+                <td>{price}</td>
+                <td>{qty}</td>
                 <button onClick={() => onAdd && onAdd()}>Add</button>
             </tr>
         );
@@ -28,10 +28,10 @@ class Item extends Component {
         } = this.props;
         return (
             <tr>
-                <th>{name}</th>
-                <th>{price}</th>
-                <th>{qty}</th>
-                <th>{total}</th>
+                <td>{name}</td>
+                <td>{price}</td>
+                <td>{qty}</td>
+                <td>{total}</td>
                 <button onClick={() => onDelete && onDelete()}>x</button>
             </tr>
     );

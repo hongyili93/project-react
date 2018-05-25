@@ -7,7 +7,7 @@ class SubTotal extends Component {
         var tax = 0.0;
         var total = 0.0;
 
-        const calcSubTotal = cartItems.map((item) => (
+        cartItems.map((item) => (
             subtotal += item.price * item.qty
         ));
 

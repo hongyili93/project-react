@@ -20,6 +20,11 @@ class ItemList extends Component {
 
         return (
             <table>
+                <tr>
+                    <td>Item Name</td>
+                    <td>Item Price</td>
+                    <td>Item Quanity</td>
+                </tr>
                 {itemsElements}
             </table>
         );
