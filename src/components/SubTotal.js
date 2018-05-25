@@ -8,7 +8,7 @@ class SubTotal extends Component {
         var total = 0.0;
 
         const calcSubTotal = cartItems.map((item) => (
-            subtotal += item.price
+            subtotal += item.price * item.qty
         ));
 
         tax = subtotal * taxRate / 100;
@@ -16,6 +16,8 @@ class SubTotal extends Component {
 
         total = subtotal * (100 + taxRate) / 100;
         total = total.toFixed(2);
+
+        subtotal = subtotal.toFixed(2);
 
         return (
             <div>

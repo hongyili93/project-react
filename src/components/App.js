@@ -73,7 +73,7 @@ class App extends Component {
                     total: 399.9
                 }
             ],
-            taxRate: 5,
+            taxRate: 5
         }
     }
 
@@ -86,6 +86,9 @@ class App extends Component {
                     (...args) => this.setState({
                         cartItems: _addItem(items, cartItems, ...args)
                     })}/>
+                <div>
+                    <ul>Cart:</ul>
+                </div>
                 <ItemList items={cartItems} mode="Cart" onDelete={
                     (...args) => this.setState({
                         cartItems: _deleteItem(items, cartItems, ...args)
