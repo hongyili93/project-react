@@ -20,11 +20,11 @@ const _addItem = (items, cartItems, id) => {
     items[ids].qty -= 1;
     cartItems[idc].qty += 1;
   } else {
-    var temp = [id, items[ids].name, items[ids].price, 1];
-    cartItems.concat(temp);
+    var temp = {'id':id, 'name':items[ids].name, 'price':items[ids].price, 'qty':1};
+    cartItems.push(temp);
   }
   console.log('before return');
-  return {items, cartItems};
+  return cartItems;
 };
 
 class App extends Component {
@@ -43,23 +43,25 @@ class App extends Component {
           name:"item2",
           price:19.99,
           qty:20
-        }
+        },
+          {
+              id:3,
+              name:"item3",
+              price:9.99,
+              qty:100
+          }
       ],
       cartItems:[
-        {
-          id:1,
-          name:"item1",
-          price:9.99,
-          qty:100
-        },
-        {
-          id:2,
-          name:"item2",
-          price:19.99,
-          qty:200
-        }
       ]
     }
+  }
+
+  updateItem(items, cartItems, id) {
+    var a = _addItem(items, cartItems, id);
+    this.setState({
+      items: a[0],
+      cartItems: a[1]
+    })
   }
 
   render() {
@@ -68,15 +70,9 @@ class App extends Component {
       <div className="App">
         <SiteHeader />
         <ItemList items={items} mode="Shop" onAdd={
-              (...args) =>(function(){
-                console.log("checking");
-                  var a = _addItem(items, cartItems, ...args);
-                  this.setState({
-                  items: a[0],
-                  cartItems: a[1]
-                })
-              }())}
-        />
+            (...args) => this.setState({
+                cartItems: _addItem(items, cartItems, ...args)
+            })}/>
         <ItemList items={cartItems} mode="Cart" onDelete={
               (...args) => this.setState({
               cartItems: _deleteItem(cartItems, ...args)
