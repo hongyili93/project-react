@@ -24,7 +24,7 @@ const _addItem = (items, cartItems, id) => {
     if (idc !== -1) {
         if(items[ids].qty > 0){
             items[ids].qty -= 1;
-            cartItems[idc].qty += 1;
+            cartItems[idc].qty = Number(cartItems[idc].qty) + 1;
             cartItems[idc].total = cartItems[idc].qty * items[ids].price;
             cartItems[idc].total = cartItems[idc].total.toFixed(2);
         }
@@ -60,6 +60,37 @@ const _createItem = (items, name, tprice, qty) => {
     return items;
 }
 
+const _updateItem = (items, cartItems, id, mode, qty) => {
+    const ids = items.findIndex((item) => item.id === id);
+    const idc = cartItems.findIndex((item) => item.id === id);
+    if(mode === "Shop") {
+        items[ids].qty = qty;
+    } else {
+        var sqty = items[ids].qty;
+        var cqty = cartItems[idc].qty;
+        var diff = cqty - qty;
+        if(diff > 0){
+            items[ids].qty += Number(diff) * 1;
+            cartItems[idc].qty = qty;
+            var ttotal0 = cartItems[idc].price * qty;
+            cartItems[idc].total = ttotal0.toFixed(2);
+        } else if (diff < 0) {
+            if(sqty + diff >= 0) {
+                items[ids].qty += diff;
+                cartItems[idc].qty = qty;
+                var ttotal1 = cartItems[idc].price * qty;
+                cartItems[idc].total = ttotal1.toFixed(2);
+            } else {
+                console.log(items[ids].qty);
+                cartItems[idc].qty += items[ids].qty;
+                items[ids].qty = 0;
+                var ttotal2 = cartItems[idc].price * cartItems[idc].qty;
+                cartItems[idc].total = ttotal2.toFixed(2);
+            }
+        }
+    }
+    return items;
+}
 
 class App extends Component {
     constructor(props, context) {
@@ -117,6 +148,10 @@ class App extends Component {
                     (...args) => this.setState({
                         cartItems: _addItem(items, cartItems, ...args)
                     })}
+                          onUpdate={
+                              (...args) => this.setState({
+                                  items: _updateItem(items, cartItems, ...args)
+                              })}
                 />
                 <CreateItem onCreate={
                     (...args) => this.setState({
@@ -130,6 +165,10 @@ class App extends Component {
                     (...args) => this.setState({
                         cartItems: _deleteItem(items, cartItems, ...args)
                     })}
+                          onUpdate={
+                              (...args) => this.setState({
+                                  items: _updateItem(items, cartItems, ...args)
+                              })}
                 />
                 <SubTotal cartItems={cartItems} taxRate={taxRate}/>
             </div>

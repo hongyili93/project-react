@@ -3,7 +3,7 @@ import Item from './Item';
 
 class ItemList extends Component {
     render() {
-        const {items, mode, onDelete, onAdd} = this.props;
+        const {items, mode, onDelete, onAdd, onUpdate} = this.props;
 
         const itemsElements = items.map((item) => (
                     <Item
@@ -15,6 +15,7 @@ class ItemList extends Component {
                         total={item.total}
                         onDelete={() => onDelete && onDelete(item.id)}
                         onAdd={() => onAdd && onAdd(item.id)}
+                        onUpdate={(content) => onUpdate && onUpdate(item.id, mode, content)}
                     />
         ));
 
