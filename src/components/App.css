@@ -22,6 +22,42 @@
   font-size: large;
 }
 
+.addButton {
+  background-color: #4CAF50; /* Green */
+  border: 1px solid;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.deleteButton {
+  background-color: #f44336; /* Green */
+  border: 1px solid;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+
+
+tr.spaceUnder>td {
+  padding-bottom: 1em;
+}
+
+.itemBorder {
+  border: 1px solid #ccc!important;
+}
+
+.itemContainer {
+  padding: 0.01em 16px;
+}
+
+.itemRoundBorder {
+  border-radius: 3px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

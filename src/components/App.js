@@ -35,6 +35,13 @@ const _addItem = (items, cartItems, id) => {
             cartItems.push(temp);
         }
     }
+    cartItems.sort(function(a, b){
+        var keyA = a.id;
+        var keyB = b.id;
+        if(keyA < keyB) return -1;
+        if(keyA > keyB) return 1;
+        return 0;
+    });
     return cartItems;
 };
 

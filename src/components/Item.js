@@ -13,7 +13,9 @@ class Item extends Component {
                 <td>{name}</td>
                 <td>{price}</td>
                 <td>{qty}</td>
-                <button onClick={() => onAdd && onAdd()}>Add</button>
+                <td>
+                    <button className="addButton" onClick={() => onAdd && onAdd()}>Add</button>
+                </td>
             </tr>
         );
     }
@@ -32,21 +34,23 @@ class Item extends Component {
                 <td>{price}</td>
                 <td>{qty}</td>
                 <td>{total}</td>
-                <button onClick={() => onDelete && onDelete()}>x</button>
+                <td>
+                    <button className="deleteButton" onClick={() => onDelete && onDelete()}>x</button>
+                </td>
             </tr>
-    );
+        );
     }
 
     render() {
         const {
-        mode
-    } = this.props;
+            mode
+        } = this.props;
         if(mode === "Shop"){
-        return this.renderShopMode();
-    } else {
-        return this.renderCartMode();
+            return this.renderShopMode();
+        } else {
+            return this.renderCartMode();
+        }
     }
-    }
-    }
+}
 
-    export default Item;
+export default Item;

@@ -5,8 +5,8 @@ class CreateItem extends Component {
         super(props, context);
         this.state = {
             name: "",
-            price: 0.0,
-            qty: 0
+            price: "",
+            qty: ""
         }
         this.updateQty = this.updateQty.bind(this);
         this.updatePrice = this.updatePrice.bind(this);
@@ -45,26 +45,30 @@ class CreateItem extends Component {
         const {name, price, qty} = this.state;
         console.log(this.state.qty);
         if(name !== "") {
-            //console.log(name);
-            //console.log(price);
-            //console.log(qty);
             onCreate && onCreate(name, price, qty);
         }
+        this.setState(
+            {
+                name: "",
+                price: "",
+                qty: ""
+            }
+        )
     }
 r
     render() {
         return (
             <div>
-                <input type="text"
+                <input type="text" value={this.state.name}
                        placeholder="name" onChange={this.updateName}>
                 </input>
-                <input type="number"
+                <input type="number" value={this.state.price}
                        placeholder="price" onChange={this.updatePrice}>
                 </input>
-                <input type="number"
+                <input type="number" value={this.state.qty}
                        placeholder="qty" onChange={this.updateQty}>
                 </input>
-                <button onClick={this.handleSubmit}>Add Item into Shop</button>
+                <button className="addButton" onClick={this.handleSubmit}>Add Item into Shop</button>
             </div>
         );
     }
